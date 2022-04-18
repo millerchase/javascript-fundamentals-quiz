@@ -1,1 +1,1 @@
-# javascript-fundamentals-quiz
+# JavaScript Fundamentals Quiz
