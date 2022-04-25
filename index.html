@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;700&family=Staatliches&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;700&family=Roboto&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="./assets/css/style.css">
     <title>JavaScript Quiz</title>
 </head>
@@ -18,7 +18,7 @@
         </a>
         <div>Time: <span id="quiz-timer" class="timer">0</span></div>
     </header>
-    <section class="intro">
+    <section id="intro" class="hidden">
         <div class="container">
             <div class="section-title">
                 <h1>Coding Quiz Challenge</h1>
@@ -32,6 +32,18 @@
             </div>
             <div class="section-action">
                 <button id="start-btn" class="btn">Start Quiz</button>
+            </div>
+        </div>
+    </section>
+
+    <section id="quiz">
+        <div class="container quiz-questions">
+            <div id="quiz-question"></div>
+            <div id="answers-list" class="answers">
+                
+                <!-- <div class="answer" data-choice="b"><span class="letter" data-choice="b">B.</span><span class="answer-text" data-choice="b">Strings</span></div>
+                <div class="answer" data-choice="c"><span class="letter" data-choice="c">C.</span><span class="answer-text" data-choice="c">Numbers</span></div>
+                <div class="answer" data-choice="d"><span class="letter" data-choice="d">D.</span><span class="answer-text" data-choice="d">Alerts</span></div> -->
             </div>
         </div>
     </section>

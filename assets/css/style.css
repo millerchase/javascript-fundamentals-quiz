@@ -18,7 +18,7 @@ h3,
 h4,
 h5,
 h6 {
-  font-family: "Staaliches", sans-serif;
+  font-family: 'Roboto', sans-serif;
 }
 
 header {
@@ -38,7 +38,7 @@ header {
     height: 500px;
 }
 
-.section-title {
+.section-title, #quiz-question {
     font-size: 2rem;
 }
 
@@ -59,4 +59,36 @@ header {
 
 #view-score-page {
     text-decoration: none;
+}
+
+#quiz {
+    width: 60%;
+    margin: 0 auto;
+}
+
+.answers {
+    width: 40%;
+    margin: 1rem auto;
+}
+
+.answer {
+    border: solid 2px black;
+    border-radius: 50px;
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: .25rem;
+    background-color: #148c35;
+    color: white;
+}
+
+.answer:hover {
+    background-color: #23e859;
+}
+
+.answer .letter {
+    margin: .3rem 0 .3rem 1rem;
+}
+
+.answer .answer-text {
+    margin: .3rem auto;
 }
