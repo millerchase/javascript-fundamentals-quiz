@@ -71,7 +71,7 @@ header {
     margin: 1rem auto;
 }
 
-.answer {
+.answers div {
     border: solid 2px black;
     border-radius: 50px;
     display: flex;
@@ -89,6 +89,22 @@ header {
     margin: .3rem 0 .3rem 1rem;
 }
 
-.answer .answer-text {
+.answer .answer-choice-text {
     margin: .3rem auto;
+}
+
+#answer-result {
+    text-align: center;
+    font-size: 2.5rem;
+    margin-top: -2rem;
+}
+
+.correct {
+    color: #23e859;
+    border-bottom: solid 3px #23e859;
+}
+
+.incorrect {
+    color: red;
+    border-bottom: solid 3px red;
 }
