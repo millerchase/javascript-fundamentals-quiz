@@ -2,13 +2,17 @@
 
 let quizTimerCount;
 let questionNumber = 0;
+let quizInProgress;
 
 const startBtnEl = document.querySelector("#start-btn");
 const quizTimeEl = document.querySelector("#quiz-timer");
 const introEl = document.querySelector("#intro");
 const answerLstEl = document.querySelector("#answers-list");
+const quizEl = document.querySelector("#quiz");
 const quizQuestionEl = document.querySelector("#quiz-question")
 const answerResultEl = document.querySelector("#answer-result");
+const quizEndEl = document.querySelector("#quiz-end");
+const scoreEl = document.querySelector("#score");
 
 // create quiz problems
 const problem1 = {
@@ -52,14 +56,19 @@ const startQuizTimer = (startNum) => {
     quizTimerCount = startNum;
     // introEl.classList.add("hidden");
     
-    let countdown = setInterval(() => {
-        if(quizTimerCount > 0){
+    let countdown = setInterval(function() {
+        if (quizInProgress) {
+            if (quizTimerCount > 0) {
             quizTimeEl.innerText = quizTimerCount;
             quizTimerCount--;
-        } else {
+            } else {
             quizTimeEl.innerText = quizTimerCount;
             clearInterval(countdown);
-        }
+            quizEndHandler();
+            }
+        } else {
+            clearInterval(countdown);
+        }       
     }, 1000);
 }
 
@@ -104,8 +113,30 @@ const displayQuestion = () => {
 
 };
 
-const startHandler = function(event) {
+const displayResult = result => {
+    // check if choice was correct or in correct
+    switch (result) {
+        case "correct":
+            answerResultEl.innerText = "✅ Correct!";
+            answerResultEl.className = "correct";
+            break;
+        case "incorrect":  
+            answerResultEl.innerText = "❌ Wrong!";
+            answerResultEl.className = "incorrect";
+            quizTimerCount -= 5;
+            break;
+    }  
+    // clear result for next question 
+    let clearResult = () => {
+        answerResultEl.innerText = "";
+        answerResultEl.className = "hidden";
+    }; 
+    setTimeout(clearResult, 800);  
+}
+
+const startHandler = () => {
     introEl.className = "hidden";
+    quizInProgress = true;
     displayQuestion();
     startQuizTimer(75);
 };
@@ -117,18 +148,46 @@ const answerChoiceHandler = event => {
         let answerChoice = event.target.dataset.choice;
         if (answerChoice === currentQuestion.correctAnswer.toLowerCase().replace(" ", "-")) {
             // if choice is correct
-            answerResultEl.innerText = "✅ Correct!"
-            answerResultEl.className = "correct";
+            displayResult('correct');
             questionNumber++;
         } else {
             // if choice is wrong
-            answerResultEl.innerText = "❌ Wrong!";
-            answerResultEl.className = "incorrect";
-            quizTimerCount -= 5;
+            displayResult('incorrect');
             questionNumber++;
         }
-        displayQuestion();
+        // check if there is a next question
+        if(problems[questionNumber]) {
+            displayQuestion();
+        } else {
+            quizEndHandler();
+        }     
     }
+};
+
+const scoreHandler = () => {
+    let score;
+    // return score value
+    if(quizTimerCount > 0) {
+        score = quizTimerCount + 1;
+    } else {
+        score = 0;
+    }
+    return score;
+};
+
+const quizEndHandler = () => {
+    quizInProgress = false;
+    let score = scoreHandler();
+
+    // clear quiz off screen
+    answerLstEl.innerHTML = "";
+    quizQuestionEl.innerText = "";
+    quizEl.classList.add("hidden");
+
+    // display quiz end
+    quizEndEl.classList.remove('hidden');
+    scoreEl.innerText = score;
+
 }
 
 // EVENT LISTENERS

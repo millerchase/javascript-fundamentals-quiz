@@ -1,5 +1,7 @@
 :root {
     --main-font-size: 1.2rem;
+    --main-green: #148c35;
+    --secondary-green: #23e859;
 }
 
 * {
@@ -10,6 +12,7 @@
 
 body {
   font-family: "Open Sans", sans-serif;
+  overflow: hidden;
 }
 
 h1,
@@ -44,11 +47,17 @@ header {
 
 .section-content {
     font-size: var(--main-font-size);
-    margin: 2rem 0;
+    width: 60%;
+    margin: 2rem auto;
 }
 
 .btn {
     font-size: var(--main-font-size);
+    background-color: var(--main-green);
+    color: white;
+}
+
+#start-btn {
     padding: 0.5rem 1rem;
     border-radius: 8px;
 }
@@ -77,12 +86,12 @@ header {
     display: flex;
     justify-content: space-between;
     margin-bottom: .25rem;
-    background-color: #148c35;
+    background-color: var(--main-green);
     color: white;
 }
 
 .answer:hover {
-    background-color: #23e859;
+    background-color: var(--secondary-green);
 }
 
 .answer .letter {
@@ -97,14 +106,46 @@ header {
     text-align: center;
     font-size: 2.5rem;
     margin-top: -2rem;
+    width: 60%;
+    margin: 0 auto;
 }
 
 .correct {
-    color: #23e859;
-    border-bottom: solid 3px #23e859;
+    color: var(--secondary-green);
+    border-bottom: solid 3px var(--secondary-green);
 }
 
 .incorrect {
     color: red;
     border-bottom: solid 3px red;
+}
+
+.score-display {
+    font-size: 2rem;
+    width: 40%;
+    margin: 0 auto;
+    text-align: left;
+}
+
+.form {
+    width: 100%;
+    flex-direction: row;
+    height: auto;
+    margin-top: .5rem;
+    justify-content: start;
+}
+
+#score-form input {
+    margin-left: 0.5rem;
+    padding-left: 0.3rem;
+    border-radius: 8px 0 0 8px;
+    border-right: none;
+}
+
+#save-btn {
+    padding: 0 0.8rem;
+    border-radius: 0 8px 8px 0;
+    border: 2px black solid;
+    border-left: none;
+    margin-left: 0.1rem;
 }
