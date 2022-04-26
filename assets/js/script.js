@@ -3,6 +3,10 @@
 let quizTimerCount;
 let questionNumber = 0;
 let quizInProgress;
+let score;
+
+// array for saving scores
+let highScores = [];
 
 const startBtnEl = document.querySelector("#start-btn");
 const quizTimeEl = document.querySelector("#quiz-timer");
@@ -13,6 +17,7 @@ const quizQuestionEl = document.querySelector("#quiz-question")
 const answerResultEl = document.querySelector("#answer-result");
 const quizEndEl = document.querySelector("#quiz-end");
 const scoreEl = document.querySelector("#score");
+const scoreFormEl = document.querySelector("#score-form");
 
 // create quiz problems
 const problem1 = {
@@ -165,7 +170,6 @@ const answerChoiceHandler = event => {
 };
 
 const scoreHandler = () => {
-    let score;
     // return score value
     if(quizTimerCount > 0) {
         score = quizTimerCount + 1;
@@ -176,8 +180,10 @@ const scoreHandler = () => {
 };
 
 const quizEndHandler = () => {
+    // end timer
     quizInProgress = false;
-    let score = scoreHandler();
+    // grab score
+    score = scoreHandler();
 
     // clear quiz off screen
     answerLstEl.innerHTML = "";
@@ -187,8 +193,51 @@ const quizEndHandler = () => {
     // display quiz end
     quizEndEl.classList.remove('hidden');
     scoreEl.innerText = score;
+};
+
+const saveHighScore = () => {
+    localStorage.setItem("highScores", JSON.stringify(highScores));
+};
+
+const loadHighScore = () => {
+    highScores = localStorage.getItem("highScores");
+
+    if(!highScores) {
+        return false;
+    }
+
+    highScores = JSON.parse(highScores);
+}
+
+const scoreFormHandler = event => {
+    // prevent default
+    event.preventDefault();
+    // get user initials from form input
+    let userInitials = document.querySelector("input[name='user-initials']").value;
+    if (score > 0) {
+        if (highScores.length >= 5) {
+            for (let i = 0; i < highScores.length; i++) {
+                if (score > highScores[i][1]) {
+                    let newHighScore = [userInitials, score];
+                    highScores.push(newHighScore);
+                    highScores.sort();
+                    saveHighScore();
+                    return;
+                }
+            }
+        } else {
+            highScores.push([userInitials, score]);
+            saveHighScore();
+        }
+        console.log(JSON.stringify(highScores));
+    }
 
 }
+
+
+// load highscores
+loadHighScore();
+console.log(highScores);
 
 // EVENT LISTENERS
 
@@ -197,3 +246,6 @@ startBtnEl.addEventListener("click", startHandler);
 
 // select answer
 answerLstEl.addEventListener("click", answerChoiceHandler);
+
+// score form
+scoreFormEl.addEventListener("submit", scoreFormHandler);
