@@ -71,7 +71,14 @@ header {
 }
 
 #view-score-page {
-    text-decoration: none;
+    color: purple;
+    background-color: white;
+    border: none;
+    font-size: var(--main-font-size);
+}
+
+#view-score-page:hover {
+    color: plum;
 }
 
 #quiz {
@@ -152,4 +159,92 @@ header {
     border: 2px black solid;
     border-left: none;
     margin-left: 0.1rem;
+}
+
+#high-scores-list {
+    min-height: 3rem;
+    width: 80%;
+    margin: 1rem 0;
+    background-color: lightgrey;
+    list-style: none;
+}
+
+.hs-lst-btn {
+    padding: .5rem;
+    border: solid 2px black;
+    text-decoration: none;
+}
+
+#back-btn {
+    padding-top: 0.3rem;
+}
+
+.list-item {
+    padding-left: .5rem;
+    border-bottom: solid 2px  black;
+}
+
+@media screen and (max-width: 850px) {
+
+    .container {
+        width: 98%;
+    }
+    
+    .section-title {
+        font-size: 1.5rem;
+        margin-top: 2rem;
+    }
+
+    .section-content {
+        width: 100%;
+    }
+
+    .quiz-questions {
+        width: 98%;
+    }
+
+    .quiz-questions h2 {
+        font-size: 1.5rem;
+    }
+
+    #quiz {
+        width: 98%;
+    }
+
+    .answers {
+        width: 80%;
+    }
+
+    #score-form label {
+        text-align: left;
+    }
+
+    #score-form input {
+        height: 2.5rem;
+        border-right: solid;
+        border-radius: 8px;
+        margin: .5rem 0;
+    }
+
+    #save-btn {
+        padding: .5rem 0;
+        border-left: solid 2px black;
+        border-radius: 8px;
+    }
+
+    .form {
+        flex-direction: column;
+    }
+
+    #high-scores {
+        text-align: center;
+    }
+
+    #high-score-display h2 {
+        font-size: 2rem;
+    }
+
+    #high-scores-list {
+        margin: 2rem auto;
+    }
 }

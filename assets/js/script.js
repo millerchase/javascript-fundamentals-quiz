@@ -9,15 +9,20 @@ let score;
 let highScores = [];
 
 const startBtnEl = document.querySelector("#start-btn");
-const quizTimeEl = document.querySelector("#quiz-timer");
+const quizTimerEl = document.querySelector("#quiz-timer");
+const quizTimeEl = document.querySelector("#quiz-time");
 const introEl = document.querySelector("#intro");
+const viewHighScoreEl = document.querySelector("#view-score-page");
 const answerLstEl = document.querySelector("#answers-list");
 const quizEl = document.querySelector("#quiz");
-const quizQuestionEl = document.querySelector("#quiz-question")
+const quizQuestionEl = document.querySelector("#quiz-question");
 const answerResultEl = document.querySelector("#answer-result");
 const quizEndEl = document.querySelector("#quiz-end");
 const scoreEl = document.querySelector("#score");
 const scoreFormEl = document.querySelector("#score-form");
+const highScoresEl = document.querySelector("#high-scores");
+const highScoresListEl = document.querySelector("#high-scores-list");
+const clearBtnEl = document.querySelector("#clear-btn");
 
 // create quiz problems
 const problem1 = {
@@ -164,7 +169,7 @@ const answerChoiceHandler = event => {
         if(problems[questionNumber]) {
             displayQuestion();
         } else {
-            quizEndHandler();
+            setTimeout(quizEndHandler, 800);
         }     
     }
 };
@@ -216,6 +221,12 @@ const loadHighScore = () => {
     highScores = JSON.parse(highScores);
 };
 
+const clearHighScores = () => {
+    localStorage.clear();
+    updateHighScoreList();
+    location.href = "./index.html";
+};
+
 const scoreFormHandler = event => {
     // prevent default
     event.preventDefault();
@@ -224,26 +235,56 @@ const scoreFormHandler = event => {
     if (score > 0) {
         if (!highScores || highScores.length < 5) {    
             saveHighScore(score, userInitials);
+            updateHighScoreList();
         } else {
             // check against lowest high score
             let minHS = highScores[4][0];
             if (score > minHS) {
                 saveHighScore(score, userInitials);
+                updateHighScoreList();
             }
         }
-        console.log(JSON.stringify(highScores));
+        displayHighscoresHandler();
     }
 
 };
 
-const displayHighscoresHandler = () => {
+const updateHighScoreList = () => {
+    if(highScores.length > 0){
+        // clear no high score text if it exists
+        highScoresListEl.innerText = '';
+        for (let i = 0; i < highScores.length; i++) {
+            // create list item for each highscore
+            let listItemEl = document.createElement("li");
+            listItemEl.innerText = `${i +1}). ${highScores[i][1]} - ${highScores[i][0]}`;
+            listItemEl.classList.add("list-item");
+            
+            // append each item to list
+            highScoresListEl.appendChild(listItemEl);
+        }
+    } else {
+        highScoresListEl.innerText = "No Current High Scores!";
+    }
+};
 
+const displayHighscoresHandler = () => {
+    // make sure quiz timer stops
+    quizInProgress = false;
+
+    // update display
+    introEl.classList.add("hidden");
+    quizEl.classList.add("hidden");
+    quizEndEl.classList.add("hidden");
+    viewHighScoreEl.classList.add("hidden");
+    quizTimerEl.classList.add("hidden");
+
+    highScoresEl.classList.remove("hidden");
 };
 
 
-// load highscores
+// load high scores
 loadHighScore();
-console.log(highScores);
+updateHighScoreList();
 
 // EVENT LISTENERS
 
@@ -255,3 +296,9 @@ answerLstEl.addEventListener("click", answerChoiceHandler);
 
 // score form
 scoreFormEl.addEventListener("submit", scoreFormHandler);
+
+// view high score section
+viewHighScoreEl.addEventListener("click", displayHighscoresHandler);
+
+// clear high scores
+clearBtnEl.addEventListener("click", clearHighScores);

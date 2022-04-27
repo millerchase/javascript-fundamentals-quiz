@@ -13,10 +13,10 @@
 <body>
     
     <header>
-        <a href="#" id="view-score-page">
+        <button id="view-score-page">
             <h4>View High Score</h4>
-        </a>
-        <div>Time: <span id="quiz-timer" class="timer">0</span></div>
+        </button>
+        <div id="quiz-timer">Time: <span id="quiz-time" class="timer">0</span></div>
     </header>
     <section id="intro">
         <div class="container">
@@ -54,9 +54,20 @@
             <p class="">Your final score is: <span id="score"></span></p>
             <form id="score-form" class="container form">
                 <label for="user-initials">Enter Initials:</label>
-                <input type="text" name="user-initials" maxlength="3" placeholder="Enter your initials" />
+                <input type="text" name="user-initials" maxlength="3" placeholder="Enter Initials" />
                 <button id="save-btn" class="btn">Submit</button>
             </form>
+        </div>
+    </section>
+
+    <section id="high-scores" class="container score-display hidden">
+        <div id="high-score-display">
+            <h2 class="section-title">High Scores</h2>
+            <ol id="high-scores-list"></ol>
+        </div>
+        <div class="hs-lst-btns">
+            <a id="back-btn" class="btn hs-lst-btn" href="./index.html">Go Back</a>
+            <button id="clear-btn" class="btn hs-lst-btn">Clear High Scores</button>
         </div>
     </section>
 
