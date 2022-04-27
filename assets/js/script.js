@@ -195,7 +195,13 @@ const quizEndHandler = () => {
     scoreEl.innerText = score;
 };
 
-const saveHighScore = () => {
+const saveHighScore = (score, userInitials) => {
+    highScores.push([score, userInitials]);
+    highScores.sort();
+    highScores.reverse();
+    if (highScores.length > 5) {
+        highScores.pop();
+    }
     localStorage.setItem("highScores", JSON.stringify(highScores));
 };
 
@@ -203,36 +209,36 @@ const loadHighScore = () => {
     highScores = localStorage.getItem("highScores");
 
     if(!highScores) {
+        highScores = [];
         return false;
     }
 
     highScores = JSON.parse(highScores);
-}
+};
 
 const scoreFormHandler = event => {
     // prevent default
     event.preventDefault();
     // get user initials from form input
-    let userInitials = document.querySelector("input[name='user-initials']").value;
+    let userInitials = document.querySelector("input[name='user-initials']").value || "ANN";
     if (score > 0) {
-        if (highScores.length >= 5) {
-            for (let i = 0; i < highScores.length; i++) {
-                if (score > highScores[i][1]) {
-                    let newHighScore = [userInitials, score];
-                    highScores.push(newHighScore);
-                    highScores.sort();
-                    saveHighScore();
-                    return;
-                }
-            }
+        if (!highScores || highScores.length < 5) {    
+            saveHighScore(score, userInitials);
         } else {
-            highScores.push([userInitials, score]);
-            saveHighScore();
+            // check against lowest high score
+            let minHS = highScores[4][0];
+            if (score > minHS) {
+                saveHighScore(score, userInitials);
+            }
         }
         console.log(JSON.stringify(highScores));
     }
 
-}
+};
+
+const displayHighscoresHandler = () => {
+
+};
 
 
 // load highscores
