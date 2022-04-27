@@ -24,4 +24,4 @@ A quiz with over some basic Javascript fundamentals. Test your progress with a h
 
 ## Contribution
 
-Made by Chase Miller.
+Made by Chase Miller. 🤘😎
