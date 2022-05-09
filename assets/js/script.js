@@ -133,7 +133,7 @@ const displayResult = result => {
         case "incorrect":  
             answerResultEl.innerText = "❌ Wrong!";
             answerResultEl.className = "incorrect";
-            quizTimerCount -= 5;
+            quizTimerCount -= 10;
             break;
     }  
     // clear result for next question 
